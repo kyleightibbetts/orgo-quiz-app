@@ -164,7 +164,7 @@ export default function Page() {
 
   return (
     <div style={{ padding: 20, fontFamily: "Arial", maxWidth: 900, margin: "auto" }}>
-      <h1>Organic Chemistry Exam Practice</h1>
+      <h1>Organic Chemistry Quiz Generator</h1><h3>Interactive Study Tool for Reaction Mechanisms</h3>
 
       <p>
         Paste your topic notes below. This free version creates exam-style organic chemistry questions without AI.
