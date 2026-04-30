@@ -22,35 +22,25 @@ export default function Page() {
         "Leaving group leaves first, forming a carbocation, then the nucleophile attacks.",
         "Nucleophile attacks and leaving group leaves at the same time.",
         "Strong base removes a proton as the leaving group leaves.",
-        "A pi bond attacks HBr to form an alkene."
+        "A pi bond attacks HBr to form an alkene.",
       ],
-      explanation: "SN1 is a two-step substitution reaction with a carbocation intermediate."
+      explanation: "SN1 is a two-step substitution reaction with a carbocation intermediate.",
     },
     {
       topic: "SN2",
       type: "Stereochemistry",
       question: "What stereochemical outcome is expected in an SN2 reaction?",
       answer: "Inversion of configuration",
-      choices: [
-        "Inversion of configuration",
-        "Complete racemization",
-        "No stereochemical change",
-        "Syn addition"
-      ],
-      explanation: "SN2 occurs by backside attack, which flips the stereochemistry."
+      choices: ["Inversion of configuration", "Complete racemization", "No stereochemical change", "Syn addition"],
+      explanation: "SN2 occurs by backside attack, which flips the stereochemistry.",
     },
     {
       topic: "E1",
       type: "Mechanism",
       question: "Which intermediate is formed during an E1 reaction?",
       answer: "Carbocation",
-      choices: [
-        "Carbocation",
-        "Carbanion",
-        "Radical only",
-        "No intermediate"
-      ],
-      explanation: "E1 is a two-step elimination that forms a carbocation before alkene formation."
+      choices: ["Carbocation", "Carbanion", "Radical only", "No intermediate"],
+      explanation: "E1 forms a carbocation before alkene formation.",
     },
     {
       topic: "E2",
@@ -61,35 +51,17 @@ export default function Page() {
         "Strong base and anti-periplanar geometry",
         "Weak nucleophile and carbocation formation",
         "Water and racemization",
-        "Peroxides and radical bromination"
+        "Peroxides and radical bromination",
       ],
-      explanation: "E2 is concerted and requires the beta hydrogen and leaving group to be anti-periplanar."
+      explanation: "E2 is concerted and requires anti-periplanar alignment.",
     },
     {
       topic: "Alkene",
       type: "Product Prediction",
       question: "What is the major outcome when an alkene reacts with HBr without peroxides?",
       answer: "Markovnikov addition",
-      choices: [
-        "Markovnikov addition",
-        "Anti-Markovnikov addition",
-        "No reaction",
-        "Only oxidation"
-      ],
-      explanation: "Without peroxides, HBr adds through a carbocation and follows Markovnikov's rule."
-    },
-    {
-      topic: "Alkene",
-      type: "Reagent Effect",
-      question: "What changes when HBr reacts with an alkene in the presence of peroxides?",
-      answer: "The reaction becomes anti-Markovnikov.",
-      choices: [
-        "The reaction becomes anti-Markovnikov.",
-        "The reaction becomes SN1.",
-        "The alkene cannot react.",
-        "The product is always an alcohol."
-      ],
-      explanation: "Peroxides cause a radical pathway, leading to anti-Markovnikov addition of HBr."
+      choices: ["Markovnikov addition", "Anti-Markovnikov addition", "No reaction", "Only oxidation"],
+      explanation: "Without peroxides, HBr adds through a carbocation and follows Markovnikov's rule.",
     },
     {
       topic: "Carbocation",
@@ -100,25 +72,17 @@ export default function Page() {
         "A hydride or alkyl shift can form a more stable carbocation.",
         "The nucleophile attacks before the leaving group leaves.",
         "The reaction avoids intermediates.",
-        "The base must always attack the least substituted carbon."
+        "The base attacks the least substituted carbon.",
       ],
-      explanation: "Carbocation rearrangements happen when a shift creates a more stable carbocation."
+      explanation: "Rearrangements happen when a shift creates a more stable carbocation.",
     },
     {
       topic: "Comparison",
       type: "Reaction Choice",
-      question: "A strong nucleophile attacking a primary alkyl halide most likely favors which reaction?",
+      question: "A primary alkyl halide with a strong nucleophile most likely favors which reaction?",
       answer: "SN2",
       choices: ["SN2", "SN1", "E1", "No reaction"],
-      explanation: "Primary substrates and strong nucleophiles favor SN2 because backside attack is accessible."
-    },
-    {
-      topic: "Comparison",
-      type: "Reaction Choice",
-      question: "A tertiary alkyl halide in a polar protic solvent with a weak nucleophile most likely favors which reaction?",
-      answer: "SN1",
-      choices: ["SN1", "SN2", "Radical halogenation", "Anti-Markovnikov addition"],
-      explanation: "Tertiary substrates form stable carbocations, and polar protic solvents support SN1."
+      explanation: "Primary substrates and strong nucleophiles favor SN2.",
     },
     {
       topic: "Comparison",
@@ -126,14 +90,13 @@ export default function Page() {
       question: "A tertiary alkyl halide with a strong bulky base most likely favors which reaction?",
       answer: "E2",
       choices: ["E2", "SN2", "SN1 only", "Hydration"],
-      explanation: "Strong bulky bases favor elimination, especially with tertiary substrates."
-    }
+      explanation: "Strong bulky bases favor elimination, especially with tertiary substrates.",
+    },
   ];
 
   function generateQuiz() {
-    let selected = [...examQuestions];
-
     const lowerNotes = notes.toLowerCase();
+    let selected = [...examQuestions];
 
     if (lowerNotes.includes("sn1")) selected = selected.filter(q => q.topic === "SN1" || q.topic === "Comparison" || q.topic === "Carbocation");
     if (lowerNotes.includes("sn2")) selected = selected.filter(q => q.topic === "SN2" || q.topic === "Comparison");
@@ -146,7 +109,7 @@ export default function Page() {
     const questions = shuffle(selected).slice(0, 8).map((q, index) => ({
       ...q,
       id: index + 1,
-      choices: shuffle(q.choices)
+      choices: shuffle(q.choices),
     }));
 
     setQuiz(questions);
@@ -155,103 +118,231 @@ export default function Page() {
   }
 
   function getScore() {
-    let score = 0;
-    quiz.forEach((q) => {
-      if (answers[q.id] === q.answer) score++;
-    });
-    return score;
+    return quiz.reduce((score, q) => score + (answers[q.id] === q.answer ? 1 : 0), 0);
   }
 
   return (
-    <div style={{ padding: 20, fontFamily: "Arial", maxWidth: 900, margin: "auto" }}>
-      <h1>Organic Chemistry Quiz Generator</h1>
-<h3>Interactive Study Tool for Reaction Mechanisms</h3>>
+    <main style={styles.page}>
+      <section style={styles.hero}>
+        <p style={styles.badge}>Organic Chemistry Study Tool</p>
+        <h1 style={styles.title}>Organic Chemistry Quiz Generator</h1>
+        <p style={styles.subtitle}>
+          Create exam-style practice questions for SN1, SN2, E1, E2, alkene reactions, carbocations, and stereochemistry.
+        </p>
+      </section>
 
-      <p>
-        Paste your topic notes below. This free version creates exam-style organic chemistry questions without AI.
-      </p>
+      <section style={styles.card}>
+        <h2 style={styles.sectionTitle}>Enter your study topics</h2>
+        <p style={styles.helper}>
+          Example: SN1, SN2, E1, E2, HBr, alkenes, carbocation rearrangements, stereochemistry
+        </p>
 
-      <textarea
-        placeholder="Example: SN1, SN2, E1, E2, alkene reactions, HBr, carbocations..."
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-        style={{
-          width: "100%",
-          height: 180,
-          marginBottom: 10,
-          padding: 10,
-          fontSize: 14
-        }}
-      />
+        <textarea
+          placeholder="Paste your organic chemistry topics or notes here..."
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          style={styles.textarea}
+        />
 
-      <br />
-
-      <button onClick={generateQuiz} style={{ padding: 12, marginBottom: 20 }}>
-        Generate Exam Quiz
-      </button>
+        <button onClick={generateQuiz} style={styles.primaryButton}>
+          Generate Exam Quiz
+        </button>
+      </section>
 
       {quiz.length > 0 && (
-        <div>
+        <section style={styles.quizSection}>
           {quiz.map((q) => (
-            <div
-              key={q.id}
-              style={{
-                border: "1px solid #ccc",
-                padding: 15,
-                marginBottom: 20,
-                borderRadius: 8,
-              }}
-            >
-              <p>
-                <b>{q.id}. {q.question}</b>
-              </p>
+            <div key={q.id} style={styles.questionCard}>
+              <div style={styles.questionTop}>
+                <span style={styles.tag}>{q.topic}</span>
+                <span style={styles.tagLight}>{q.type}</span>
+              </div>
 
-              <p>
-                <b>Topic:</b> {q.topic} | <b>Question Type:</b> {q.type}
-              </p>
+              <h3 style={styles.question}>
+                {q.id}. {q.question}
+              </h3>
 
-              {q.choices.map((choice) => (
-                <div key={choice}>
+              <div>
+                {q.choices.map((choice) => (
                   <button
+                    key={choice}
                     onClick={() => setAnswers({ ...answers, [q.id]: choice })}
                     style={{
-                      margin: 5,
-                      padding: 8,
-                      backgroundColor: answers[q.id] === choice ? "#d9eaff" : "white",
-                      border: "1px solid #999",
-                      borderRadius: 5,
-                      cursor: "pointer"
+                      ...styles.choiceButton,
+                      backgroundColor: answers[q.id] === choice ? "#dbeafe" : "#ffffff",
+                      borderColor: answers[q.id] === choice ? "#2563eb" : "#d1d5db",
                     }}
                   >
                     {choice}
                   </button>
-                </div>
-              ))}
+                ))}
+              </div>
 
               {showResults && (
-                <div style={{ marginTop: 10 }}>
-                  <p>
-                    <b>Correct answer:</b> {q.answer}
-                  </p>
-                  <p>
-                    <b>Explanation:</b> {q.explanation}
-                  </p>
+                <div style={styles.answerBox}>
+                  <p><strong>Correct answer:</strong> {q.answer}</p>
+                  <p><strong>Explanation:</strong> {q.explanation}</p>
                 </div>
               )}
             </div>
           ))}
 
-          <button onClick={() => setShowResults(true)} style={{ padding: 12 }}>
+          <button onClick={() => setShowResults(true)} style={styles.secondaryButton}>
             Check Answers
           </button>
 
           {showResults && (
-            <h2>
+            <div style={styles.scoreBox}>
               Score: {getScore()} / {quiz.length}
-            </h2>
+            </div>
           )}
-        </div>
+        </section>
       )}
-    </div>
+    </main>
   );
 }
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    background: "linear-gradient(135deg, #eef2ff, #f8fafc)",
+    padding: "40px 20px",
+    fontFamily: "Arial, sans-serif",
+    color: "#111827",
+  },
+  hero: {
+    maxWidth: 900,
+    margin: "0 auto 24px",
+    padding: 30,
+    backgroundColor: "#ffffff",
+    borderRadius: 20,
+    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+  },
+  badge: {
+    display: "inline-block",
+    padding: "6px 12px",
+    borderRadius: 999,
+    backgroundColor: "#e0e7ff",
+    color: "#3730a3",
+    fontWeight: "bold",
+    fontSize: 13,
+  },
+  title: {
+    fontSize: 42,
+    margin: "16px 0 8px",
+  },
+  subtitle: {
+    fontSize: 17,
+    color: "#4b5563",
+    lineHeight: 1.6,
+  },
+  card: {
+    maxWidth: 900,
+    margin: "0 auto 24px",
+    padding: 26,
+    backgroundColor: "#ffffff",
+    borderRadius: 20,
+    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+  },
+  sectionTitle: {
+    margin: 0,
+    fontSize: 24,
+  },
+  helper: {
+    color: "#6b7280",
+    fontSize: 14,
+  },
+  textarea: {
+    width: "100%",
+    height: 190,
+    padding: 14,
+    fontSize: 15,
+    borderRadius: 12,
+    border: "1px solid #d1d5db",
+    outline: "none",
+    marginBottom: 16,
+  },
+  primaryButton: {
+    padding: "12px 18px",
+    borderRadius: 12,
+    border: "none",
+    backgroundColor: "#2563eb",
+    color: "white",
+    fontWeight: "bold",
+    cursor: "pointer",
+    fontSize: 15,
+  },
+  quizSection: {
+    maxWidth: 900,
+    margin: "0 auto",
+  },
+  questionCard: {
+    backgroundColor: "#ffffff",
+    borderRadius: 18,
+    padding: 22,
+    marginBottom: 18,
+    boxShadow: "0 8px 24px rgba(0,0,0,0.07)",
+  },
+  questionTop: {
+    display: "flex",
+    gap: 8,
+    marginBottom: 10,
+  },
+  tag: {
+    backgroundColor: "#dcfce7",
+    color: "#166534",
+    padding: "5px 10px",
+    borderRadius: 999,
+    fontSize: 12,
+    fontWeight: "bold",
+  },
+  tagLight: {
+    backgroundColor: "#fef3c7",
+    color: "#92400e",
+    padding: "5px 10px",
+    borderRadius: 999,
+    fontSize: 12,
+    fontWeight: "bold",
+  },
+  question: {
+    fontSize: 18,
+    lineHeight: 1.5,
+  },
+  choiceButton: {
+    display: "block",
+    width: "100%",
+    textAlign: "left",
+    padding: 12,
+    margin: "8px 0",
+    borderRadius: 10,
+    border: "1px solid #d1d5db",
+    cursor: "pointer",
+    fontSize: 14,
+  },
+  answerBox: {
+    marginTop: 14,
+    padding: 14,
+    backgroundColor: "#f0fdf4",
+    borderRadius: 12,
+    border: "1px solid #bbf7d0",
+  },
+  secondaryButton: {
+    padding: "12px 18px",
+    borderRadius: 12,
+    border: "none",
+    backgroundColor: "#111827",
+    color: "white",
+    fontWeight: "bold",
+    cursor: "pointer",
+    fontSize: 15,
+  },
+  scoreBox: {
+    marginTop: 16,
+    padding: 18,
+    backgroundColor: "#ffffff",
+    borderRadius: 14,
+    fontSize: 22,
+    fontWeight: "bold",
+    boxShadow: "0 8px 24px rgba(0,0,0,0.07)",
+  },
+};
